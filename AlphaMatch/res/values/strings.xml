@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Alpha Match</string>
+    <string name="action_settings">Settings</string>
+    <string name="start">START GAME</string>
+    <string name="curTime">Your Current Time</string>
+    <string name="bestTime">Time To Beat</string>
+    <string name="time">00:00</string>
+    <string name="quit">QUIT</string>
+
+</resources>

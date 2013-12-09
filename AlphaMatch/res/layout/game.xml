@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/bestTime"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/timeToBeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/yourTime"
+        android:layout_alignBottom="@+id/yourTime"
+        android:layout_alignRight="@+id/button3"
+        android:text="@string/time"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/yourTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_below="@+id/textView1"
+        android:text="@string/time"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/curTime"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_marginBottom="19dp"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button10"
+        android:layout_alignBottom="@+id/button10"
+        android:layout_toRightOf="@+id/button8"
+        android:text="@string/quit" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_toRightOf="@+id/textView1"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_below="@+id/yourTime"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignLeft="@+id/Button6"
+        android:layout_below="@+id/Button6"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/button5"
+        android:layout_toLeftOf="@+id/button3"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/Button11"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignBaseline="@+id/Button12"
+        android:layout_alignBottom="@+id/Button12"
+        android:layout_toLeftOf="@+id/quit"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/Button12"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignBaseline="@+id/Button10"
+        android:layout_alignBottom="@+id/Button10"
+        android:layout_alignLeft="@+id/button9"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/Button10"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_above="@+id/button10"
+        android:layout_alignLeft="@+id/button7"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_above="@+id/Button10"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="14dp"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignBaseline="@+id/Button6"
+        android:layout_alignBottom="@+id/Button6"
+        android:layout_toLeftOf="@+id/button3"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_marginLeft="23dp"
+        android:layout_toRightOf="@+id/button2"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignBaseline="@+id/button5"
+        android:layout_alignBottom="@+id/button5"
+        android:layout_alignLeft="@+id/button7"
+        android:background="@drawable/blank" />
+
+    <Button
+        android:id="@+id/Button6"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_above="@+id/button7"
+        android:layout_alignLeft="@+id/button3"
+        android:background="@drawable/blank" />
+
+</RelativeLayout>
