@@ -1,3 +1,9 @@
+/************************************************************************
+ *  Justin Ramos
+ *  BestTimes.java
+ *  Reads from sharedpreferences and displays the top 5 times
+ **************************************************************************/
+
 package com.justin.alphamatch;
 
 import android.app.Activity;

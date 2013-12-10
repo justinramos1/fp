@@ -1,7 +1,10 @@
+/************************************************************************
+ *  Justin Ramos
+ *  Timer.java
+ *  Runs a thread that keeps track of time
+ **************************************************************************/
 package com.justin.alphamatch;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.widget.TextView;
@@ -29,17 +32,20 @@ public class Timer {
 			final long start = startTime;
 			long millis = SystemClock.uptimeMillis() - start;
 			seconds = (int) (millis / 1000);
-			int minutes = seconds / 60;
-			seconds = seconds % 60;
 			
-			timeLabel.setText(""+minutes+":"+String.format("%02d", seconds));
+			timeLabel.setText(Integer.toString(seconds));
 			handler.postDelayed(this, 200);
 		}
 	};
 	
-	public int getStopTime()
+	public int getStopSeconds()
 	{
 		return seconds;
 	}
 	
+	public void stopTimer()
+	{
+		handler.removeCallbacks(UpdateTimeTask);
+	}
+		
 }

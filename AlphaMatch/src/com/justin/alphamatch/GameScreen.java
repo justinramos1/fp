@@ -1,9 +1,12 @@
+/************************************************************************
+ *  Justin Ramos
+ *  GameScreen.java
+ *  Allows user to play memory game and beat the best score, user can also navigate to view the best times or quit
+ **************************************************************************/
+
 package com.justin.alphamatch;
 
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Random;
 
 import android.app.Activity;
@@ -11,8 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,20 +24,29 @@ import android.media.MediaPlayer;
 
 public class GameScreen extends Activity
 {
+	//constants
+	final int MAX = 6;
+	final int MIN = 1;
+	final String TAG = "TEST: ";
+	
+	//objects
 	Timer t1;
 	Button quitBtn, viewBestTimesBtn;
 	SharedPreferences prefs;
-	public Button buttons[] = new Button[12]; //array of buttons
-	public CardButton cardButtons[] = new CardButton[12];
-	final int MAX = 6;
-	final int MIN = 1;
-	int row = 0;
-	int col = 0;
+	Button buttons[] = new Button[12]; //array of buttons
+	CardButton cardButtons[] = new CardButton[12];
+	
+	//variables
+	int time; //used for saving through sharedpreferences
+	int timeSaved;
+	String bestTime;
+	private TextView bestTimeLabel;
 	private int randNum; //serves as id for each button
 	int matches = 0; //6 matches wins the game
 	int firstId = 0; //first and second tile flipped
 	int secondId = 0;
 	private int[] valuesNotUsed = { 0, 2, 2, 2, 2, 2, 2 }; //numbers are decremented as they are picked by random number generator
+	
 	//MediaPlayer vars for sounds                          //index represents number val
 	private MediaPlayer mpA; //Sound for letter A
 	private MediaPlayer mpB; //Sound for letter B etc
@@ -44,11 +54,9 @@ public class GameScreen extends Activity
 	private MediaPlayer mpD;
 	private MediaPlayer mpE;
 	private MediaPlayer mpF;
-	final String TAG = "TEST: ";
-	int time;
-	int timeSaved;
-	String bestTime;
-	private TextView bestTimeLabel;
+	private MediaPlayer correct;
+	private MediaPlayer incorrect;
+	private MediaPlayer clapping;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -56,20 +64,22 @@ public class GameScreen extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
 		
+		//create audio file objects
+		correct = MediaPlayer.create(GameScreen.this, R.raw.correct);
+		incorrect = MediaPlayer.create(GameScreen.this, R.raw.wrong);
+		clapping = MediaPlayer.create(GameScreen.this, R.raw.appluase);
+		
 		prefs = this.getSharedPreferences("com.justin.alphamatch", Context.MODE_PRIVATE);
 		
 		bestTime = prefs.getString("one", "0");
 		
 		bestTimeLabel = (TextView) findViewById(R.id.best);
-		bestTimeLabel.setText(bestTime
-				);
+		bestTimeLabel.setText(bestTime);
 		
 		t1 = new Timer((TextView) findViewById(R.id.yourTime)); //create Timer object that starts Time
 		
-		//create buttons and setup listeners
+		//quit Button and listener
 		quitBtn = (Button) findViewById(R.id.quit);
-		viewBestTimesBtn = (Button) findViewById(R.id.goToBestActivity);
-		
 		quitBtn.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -79,6 +89,8 @@ public class GameScreen extends Activity
 			}
 		});
 		
+		//button to view best time activity and listener
+		viewBestTimesBtn = (Button) findViewById(R.id.goToBestActivity);
 		viewBestTimesBtn.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -102,10 +114,9 @@ public class GameScreen extends Activity
 		buttons[10] = (Button) findViewById(R.id.button_11);
 		buttons[11] = (Button) findViewById(R.id.button_12);
 		
-		//b1.setBackgroundResource(R.drawable.a);
 			
 		for(int i = 0; i < 12; i++)
-		{ //generate 12 random numbers; 1-6
+		{ //generate 12 random numbers; 1-6 are used for id's for cardButton class
 			Random r = new Random();
 			this.randNum = r.nextInt(this.MAX) + this.MIN; //rand between 1 and 6
 			
@@ -130,15 +141,7 @@ public class GameScreen extends Activity
         finish();
         super.onStop();
     }
-	
-	public void showWinnerMsg(){
-		Context context = getApplicationContext();
-		CharSequence text = "YOU WON!!!!!!";
-		int duration = Toast.LENGTH_SHORT;
 
-		Toast toast = Toast.makeText(context, text, duration);
-		toast.show();
-	}
 	
 	public void addMyListener(final Button b, final int id, final int index)
 	{
@@ -146,8 +149,8 @@ public class GameScreen extends Activity
 
 			@Override
 			public void onClick(View v) {
-				switch(id)
-				{
+				switch(id) //set background on touch based on id
+				{          // 1 is a ... 6 is f
 					case 1:
 							b.setBackgroundResource(R.drawable.a);
 							break;
@@ -180,25 +183,39 @@ public class GameScreen extends Activity
 					secondId = id;
 				
 					//check for match
-					if(firstId == secondId)
-					{
+					if(firstId == secondId) //if match then increment match count by 1 and play sound
+					{  
 						matches += 1;
+						correct.stop();
+						correct.start();
 					}
 					else //wait so that card is shown, then reset cards
 					{
+						incorrect.stop();
+						incorrect.start();
 						
 						findCardById();
 						
-						b.setBackgroundResource(R.drawable.blank);
+						b.postDelayed(new Runnable() {
+
+						    public void run() {
+						        // change image
+						    	b.setBackgroundResource(R.drawable.blank);
+						    }
+
+						}, 1000); // 1000ms delay
 						
 					}
 					
 					if(matches == 6) //game over
 					{
 						
-						//get time
-						time = t1.getStopTime();
+						//play applause
+						clapping.start();
 						
+						//get time
+						time = t1.getStopSeconds();
+							
 						//set if time is beats any saved
 						if(time < Integer.parseInt(prefs.getString("one", "9999")))
 						{
@@ -229,6 +246,9 @@ public class GameScreen extends Activity
 						Toast toast = Toast.makeText(context, text, duration);
 						toast.setGravity(Gravity.CENTER, 0, 0);
 						toast.show();
+						
+						t1.stopTimer(); 
+						
 					}
 					firstId = 0;
 					secondId = 0;
@@ -245,14 +265,24 @@ public class GameScreen extends Activity
 		startActivity(launchBestTimes);
 	}
 	
-	private void findCardById()
+	private void findCardById() //finds card other card that is flipped over and sets background to blank and flipped to false
 	{
+		
 		//find other card that was flipped and change background back to blank
 		for(int i = 0; i < 12; i++)
 		{
 			if(cardButtons[i].id == firstId && cardButtons[i].flipped == true)
 			{
-				cardButtons[i].button.setBackgroundResource(R.drawable.blank);
+				final int index = i;
+				cardButtons[i].button.postDelayed(new Runnable() {
+
+				    public void run() {
+				        // change image
+				    	cardButtons[index].button.setBackgroundResource(R.drawable.blank);
+				    }
+
+				}, 1000); // 1000ms delay
+				//cardButtons[i].button.setBackgroundResource(R.drawable.blank);
 				cardButtons[i].setFlipped(false);
 				
 			}
@@ -260,10 +290,10 @@ public class GameScreen extends Activity
 	
 	}
 	
-	private void flip(int index)
+	private void flip(int index) //flips cardButton to true based on index
 	{
 		cardButtons[index].setFlipped(true);
-		Log.d("LOOOOO","JL:KJ");
+		
 	}
 	
 

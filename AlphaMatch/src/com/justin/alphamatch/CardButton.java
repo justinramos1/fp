@@ -1,10 +1,11 @@
+/************************************************************************
+ *  Justin Ramos
+ *  CardButton.java
+ *  Class that is used to build objects for memory card game, each tile in GameScreen.java is an instance of this class
+ **************************************************************************/
 package com.justin.alphamatch;
-import android.content.Context;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
+import android.widget.Button;
 
 public class CardButton extends GameScreen
 {

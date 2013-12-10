@@ -11,5 +11,10 @@
     <string name="seeBestTimes">View Best Times</string>
     <string name="best">BEST TIMES</string>
     <string name="noTimeYet">0</string>
+    <string name="first">1st</string>
+    <string name="second">2nd</string>
+    <string name="third">3rd</string>
+    <string name="fourth">4th</string>
+    <string name="fifth">5th</string>
 
 </resources>
