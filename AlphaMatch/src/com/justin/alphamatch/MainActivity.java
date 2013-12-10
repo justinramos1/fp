@@ -1,6 +1,11 @@
 package com.justin.alphamatch;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.app.Activity;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,24 +14,24 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 	
-	Button startBtn;
-	Button quitBtn;
+	Button startBtn, quitBtn, bestTimesBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		
 		//create start button and setup listener
 		startBtn = (Button) findViewById(R.id.startButton);
-		startBtn.setOnClickListener(new View.OnClickListener(){
-					
+		startBtn.setOnClickListener(new View.OnClickListener(){			
 			@Override
 			public void onClick(View v) {
 				startGame();
 						
 			}
 		});
-		//create start button and setup listener
+		
 		quitBtn = (Button) findViewById(R.id.quit);
 		quitBtn.setOnClickListener(new View.OnClickListener(){
 							
@@ -34,6 +39,17 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				startGame();
 								
+			}
+		});
+		
+		
+		bestTimesBtn = (Button) findViewById(R.id.viewBestTimeBtn_Main);
+		bestTimesBtn.setOnClickListener(new View.OnClickListener(){
+									
+			@Override
+			public void onClick(View v) 
+			{
+				viewBestTimes();
 			}
 		});
 	}
@@ -56,6 +72,12 @@ public class MainActivity extends Activity {
 	{
 		Intent launchGame = new Intent(this,GameScreen.class);
 		startActivity(launchGame);
+	}
+	
+	private void viewBestTimes() 
+	{
+		Intent launchBestTimes = new Intent(this,BestTimes.class);
+		startActivity(launchBestTimes);
 	}
 
 }	

@@ -11,7 +11,7 @@ public class Timer {
 	private TextView timeLabel;
 	private long startTime = 0L; //start time will always start at 0
 	private Handler handler = new Handler();
-	
+	private int seconds;
 	
 	public Timer( TextView timeToUpdate) {	
 		if(this.startTime == 0L){
@@ -28,7 +28,7 @@ public class Timer {
 		public void run(){
 			final long start = startTime;
 			long millis = SystemClock.uptimeMillis() - start;
-			int seconds = (int) (millis / 1000);
+			seconds = (int) (millis / 1000);
 			int minutes = seconds / 60;
 			seconds = seconds % 60;
 			
@@ -37,6 +37,9 @@ public class Timer {
 		}
 	};
 	
-	
+	public int getStopTime()
+	{
+		return seconds;
+	}
 	
 }

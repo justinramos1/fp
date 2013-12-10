@@ -8,5 +8,8 @@
     <string name="bestTime">Time To Beat</string>
     <string name="time">00:00</string>
     <string name="quit">QUIT</string>
+    <string name="seeBestTimes">View Best Times</string>
+    <string name="best">BEST TIMES</string>
+    <string name="noTimeYet">0</string>
 
 </resources>
